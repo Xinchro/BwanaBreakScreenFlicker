@@ -1,32 +1,32 @@
 let flashes = [
   {
     flash: "a",
-    flickerTime: 100,
-    amount: 5,
-  },
-  {
-    flash: "pause",
-    flickerTime: 500,
-    amount: 1,
-  },
-  {
-    flash: "b",
-    flickerTime: 100,
-    amount: 5,
-  },
-  {
-    flash: "pause",
-    flickerTime: 500,
-    amount: 1,
-  },
-  {
-    flash: "ab",
-    flickerTime: 100,
+    flickerTime: 1000,
     amount: 5,
   },
   {
     flash: "pause",
     flickerTime: 2000,
+    amount: 1,
+  },
+  {
+    flash: "b",
+    flickerTime: 1000,
+    amount: 5,
+  },
+  {
+    flash: "pause",
+    flickerTime: 2000,
+    amount: 1,
+  },
+  {
+    flash: "ab",
+    flickerTime: 1000,
+    amount: 5,
+  },
+  {
+    flash: "pause",
+    flickerTime: 4000,
     amount: 1,
   }
 ]
@@ -34,26 +34,32 @@ let flashes = [
 function getImage(name) {
   switch(name) {
     case "a":
-      return "https://picsum.photos/200/300/?a"
+      return "https://dummyimage.com/1920x1080/000/fff&text=a"
       break
     case "b":
-      return "https://picsum.photos/200/300/?b"
+      return "https://dummyimage.com/1920x1080/000/fff&text=b"
       break
     case "ab":
-      return "https://picsum.photos/200/300/?ab"
+      return "https://dummyimage.com/1920x1080/000/fff&text=ab"
       break
     default:
-      return "https://picsum.photos/200/300/?pause"
+      return "https://dummyimage.com/1920x1080/000/fff&text=pause"
   }
 }
 
-let index = 0
+function loop(index) {
+  let prevIndex = index-1 > -1 ? index-1 : flashes.length-1
+  let nextIndex = index+1 < flashes.length ? index+1 : 0
 
-function loop(nextIndex) {
+  console.log("----------------------")
+  console.log("prev", prevIndex, flashes[prevIndex].flash, flashes[prevIndex].flickerTime)
+  console.log("current", index, flashes[index].flash, flashes[index].flickerTime)
+  console.log("next", nextIndex, flashes[nextIndex].flash, flashes[nextIndex].flickerTime)
+
   setTimeout(() => {
-    document.body.style.backgroundImage = `url(${getImage(flashes[nextIndex].flash)})`
-  }, flashes[nextIndex].flickerTime)
-  loop(nextIndex++)
+    document.body.style.backgroundImage = `url('${getImage(flashes[index].flash)}')`
+    loop(nextIndex)
+  }, flashes[prevIndex].flickerTime)
 }
 
 loop(0)
