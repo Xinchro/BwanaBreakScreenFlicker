@@ -8,3 +8,9 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+img {
+  height: 0;
+  width: 0;
+  display: none;
+}
