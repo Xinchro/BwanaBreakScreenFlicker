@@ -51,13 +51,14 @@ function loop(index) {
   let prevIndex = index-1 > -1 ? index-1 : flashes.length-1
   let nextIndex = index+1 < flashes.length ? index+1 : 0
 
-  console.log("----------------------")
-  console.log("prev", prevIndex, flashes[prevIndex].flash, flashes[prevIndex].flickerTime)
-  console.log("current", index, flashes[index].flash, flashes[index].flickerTime)
-  console.log("next", nextIndex, flashes[nextIndex].flash, flashes[nextIndex].flickerTime)
-
   setTimeout(() => {
     document.body.style.backgroundImage = `url('${getImage(flashes[index].flash)}')`
+
+    console.log("----------------------")
+    console.log("prev", prevIndex, flashes[prevIndex].flash, flashes[prevIndex].flickerTime)
+    console.log("current", index, flashes[index].flash, flashes[index].flickerTime)
+    console.log("next", nextIndex, flashes[nextIndex].flash, flashes[nextIndex].flickerTime)
+
     loop(nextIndex)
   }, flashes[prevIndex].flickerTime)
 }
