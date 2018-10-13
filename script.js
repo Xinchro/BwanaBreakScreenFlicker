@@ -47,6 +47,13 @@ function getImage(name) {
   }
 }
 
+let state = {
+  firstRun: true,
+  a: false,
+  b: false,
+  ab: false
+}
+
 function loop(index) {
   let prevIndex = index-1 > -1 ? index-1 : flashes.length-1
   let nextIndex = index+1 < flashes.length ? index+1 : 0
@@ -59,8 +66,9 @@ function loop(index) {
     console.log("current", index, flashes[index].flash, flashes[index].flickerTime)
     console.log("next", nextIndex, flashes[nextIndex].flash, flashes[nextIndex].flickerTime)
 
+    state.firstRun = false
     loop(nextIndex)
-  }, flashes[prevIndex].flickerTime)
+  }, state.firstRun ? 0 : flashes[prevIndex].flickerTime )
 }
 
 loop(0)
